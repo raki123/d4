@@ -10,7 +10,7 @@ The original format for an or node was
 
 The new format is
 
-`idx_from idx_to <unit literals> 0 <free variables>`.
+`idx_from idx_to <unit literals> 0 <free variables> 0`.
 
 
 
