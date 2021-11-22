@@ -99,7 +99,7 @@ template<class T> class DAG
     return stamp - globalStamp;
   }
 
-  virtual void printNNF(std::ostream& out, bool certif) = 0;
+  virtual void printNNF(std::ostream& out, bool certif, bool smooth) = 0;
   virtual T computeNbModels();
   virtual void debug(){}
   virtual void debug(vec<Lit> &trail){}

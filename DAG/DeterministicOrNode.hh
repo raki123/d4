@@ -75,7 +75,7 @@ public:
   }
 
 
-  inline void printNNF(std::ostream& out, bool certif)
+  inline void printNNF(std::ostream& out, bool certif, bool smooth)
   {
     if(stamp >= globalStamp) return;
     stamp = globalStamp + idxOutputStruct + 1;
@@ -86,12 +86,17 @@ public:
 
     for(int i = 0 ; i<sons.size() ; i++)
       {
-        sons[i].printNNF(out, certif);
+        sons[i].printNNF(out, certif, smooth);
 
         out << idxCurrent << " " << (sons[i].d)->getIdx() << " ";
         Lit *pUnit = &DAG<T>::unitLits[sons[i].idxUnitLit];
         for( ; *pUnit != lit_Undef ; pUnit++) out << readableLit(*pUnit) << " ";
-        out << "0" << endl;
+        out << "0 ";
+        if(smooth) {
+          Var *pFree = &DAG<T>::freeVariables[sons[i].idxFreeVar];
+          for( ; *pFree != var_Undef ; pFree++) out << readableVar(*pFree) << " ";
+        }
+        out << "0 " << endl;
       }
   }// printNNF
 

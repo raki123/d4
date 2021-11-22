@@ -28,7 +28,7 @@ public:
   using DAG<T>::idxOutputStruct;
   using DAG<T>::stamp;
 
-  inline void printNNF(std::ostream& out, bool certif)
+  inline void printNNF(std::ostream& out, bool certif, bool smooth)
   {
     if(stamp >= globalStamp) return;
     stamp = globalStamp + idxOutputStruct + 1;

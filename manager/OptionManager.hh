@@ -26,6 +26,7 @@ class OptionManager
 {
 public:
   int optCache;
+  bool smooth;
   bool optDecomposableAndNode;
   bool reversePolarity;
   bool reducePrimalGraph;
@@ -40,7 +41,7 @@ public:
   const char *partitionHeuristic;
   const char *cacheRepresentation;
 
-  OptionManager(int _optCache, bool _optAnd, bool _reversePolarity, bool _reducePrimalGraph,
+  OptionManager(int _optCache, bool _smooth, bool _optAnd, bool _reversePolarity, bool _reducePrimalGraph,
                 bool _equivSimplification, const char *_cacheStore, const char *_varHeuristic,
                 const char *_phaseHeuristic, const char *_partitionHeuristic,
                 const char *_cacheRepresentation, int rdCache, int strCache, int frqLimit)
@@ -59,6 +60,7 @@ public:
     phaseHeuristic = _phaseHeuristic;
     partitionHeuristic = _partitionHeuristic;
     cacheStore = _cacheStore;
+    smooth = _smooth;
   }// constructor
 
   inline void printOptions()

@@ -39,7 +39,7 @@ public:
     for(int i = 0 ; i<cnf.size() ; i++) s.addClause_(cnf[i]);
   }// constructor
 
-  inline void printNNF(std::ostream& out, bool certif){printf("PC");}// printNNF
+  inline void printNNF(std::ostream& out, bool certif, bool smooth){printf("PC");}// printNNF
 
   inline bool isSAT(vec<Lit> &unitsLitBranches)
   {

@@ -135,7 +135,7 @@ template<typename T> void compileDDNNF(vec<vec<Lit> > &cls, vec<double> &wLit, O
 {
   DDnnfCompiler<T> *dDnnfCompiler = new DDnnfCompiler<T>(cls, wLit, opt, isProjectedVar, dratOut);
   DAG<T> *t = dDnnfCompiler->compile();
-  if(out != nullptr) t->printNNF(*out, dratOut);
+  if(out != nullptr) t->printNNF(*out, dratOut, opt.smooth);
 
   if(query) runQueries<T>(t);
   else
@@ -209,6 +209,7 @@ int main(int argc, char** argv)
   BoolOption query("MAIN", "query", "Compute a set of queries given on the input stream\n", false);
 
   // options:
+  BoolOption smooth("MAIN", "smooth", "Add smoothing atoms after unit literals in dDNNF\n", false);
   BoolOption optAnd("MAIN", "optAnd", "And decomposition activate\n", true);
   BoolOption rPolarity("MAIN", "rp", "Reverse the polarity heuristic in the compiler\n", false);
   BoolOption reducePrimalGraph("MAIN", "rpg",
@@ -253,7 +254,7 @@ int main(int argc, char** argv)
   ofstream dratOut{dratOutput};
   if (!dratOut.is_open()) printf("c WARNING! Could not write output drat file %s?\n", (const char *) dratOutput);
 
-  OptionManager optList(optCache, optAnd, rPolarity, reducePrimalGraph, equivSimp, cacheStore, varHeuristic,
+  OptionManager optList(optCache, smooth, optAnd, rPolarity, reducePrimalGraph, equivSimp, cacheStore, varHeuristic,
                         phaseHeuristic, partitionHeuristic, cacheRepresentation, reduceCache,
                         strategyRedCache, freqLimitDyn);
 

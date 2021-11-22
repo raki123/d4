@@ -63,9 +63,9 @@ public:
     return cpt;
   }
 
-  inline void printNNF(std::ostream& out, bool certif)
+  inline void printNNF(std::ostream& out, bool certif, bool smooth)
   {
-    d->printNNF(out, certif);
+    d->printNNF(out, certif, smooth);
   }// printNNF
 
   inline int computeState_(int nbAssums)

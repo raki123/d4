@@ -68,7 +68,7 @@ public:
     return firstBranch.d->getSize_() + secondBranch.d->getSize_();
   }
 
-  inline void printNNF(std::ostream& out, bool certif)
+  inline void printNNF(std::ostream& out, bool certif, bool smooth)
   {
     if(stamp >= globalStamp) return;
     stamp = globalStamp + idxOutputStruct + 1;
@@ -76,18 +76,28 @@ public:
 
     out << "o " << idxCurrent << " 0" << endl;
 
-    firstBranch.printNNF(out, certif);
-    secondBranch.printNNF(out, certif);
+    firstBranch.printNNF(out, certif, smooth);
+    secondBranch.printNNF(out, certif, smooth);
 
     out << idxCurrent << " " << (firstBranch.d)->getIdx() << " ";
     Lit *pUnit = &DAG<T>::unitLits[firstBranch.idxUnitLit];
     for( ; *pUnit != lit_Undef ; pUnit++) out << readableLit(*pUnit) << " ";
-    out << "0" << endl;
+    out << "0 ";
+    if(smooth) {
+      Var *pFree = &DAG<T>::freeVariables[firstBranch.idxFreeVar];
+      for( ; *pFree != var_Undef ; pFree++) out << readableVar(*pFree) << " ";
+    }
+    out << "0 " << endl;
 
     out << idxCurrent << " " << (secondBranch.d)->getIdx() << " ";
     pUnit = &DAG<T>::unitLits[secondBranch.idxUnitLit];
     for( ; *pUnit != lit_Undef ; pUnit++) out << readableLit(*pUnit) << " ";
-    out << "0" << endl;
+    out << "0 ";
+    if(smooth) {
+      Var *pFree = &DAG<T>::freeVariables[secondBranch.idxFreeVar];
+      for( ; *pFree != var_Undef ; pFree++) out << readableVar(*pFree) << " ";
+    }
+    out << "0 " << endl;
   }// printNNF
 
 

@@ -1,3 +1,15 @@
+Changes 2021/11/22 by Rafael Kiesel:
+
+The changes add support for smoothing the dDNNF representation by:
+- adding a Boolean option `-smooth` that is false by default
+- printing for arcs to or nodes not only the implied unit literals but also the free variables at that point
+
+The original format for an or node was
+`idx_from idx_to <unit literals> 0`
+The new format is
+`idx_from idx_to <unit literals> 0 <free variables>`
+
+
 Authors: Lagniez Jean-Marie
 Date: 2017/07/09
 

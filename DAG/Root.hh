@@ -69,7 +69,7 @@ public:
     fromCache = fromCache_;
   }
 
-  inline void printNNF(std::ostream& out, bool certif)
+  inline void printNNF(std::ostream& out, bool certif, bool smooth)
   {
     stamp = globalStamp + 1;
     int idxCurrent = ++idxOutputStruct;
@@ -82,13 +82,18 @@ public:
     }
     else out << "o " << idxCurrent << " 0" << endl;
 
-    b.printNNF(out, certif);
+    b.printNNF(out, certif, smooth);
     out << idxCurrent << " " << (b.d)->getIdx() << " ";
     if(certif) out << (fromCache ? "1" : "2") << " ";
 
     Lit *pUnit = &DAG<T>::unitLits[b.idxUnitLit];
     for( ; *pUnit != lit_Undef ; pUnit++) out << readableLit(*pUnit) << " ";
-    out << "0" << endl;
+    out << "0 ";
+    if(smooth) {
+      Var *pFree = &DAG<T>::freeVariables[b.idxFreeVar];
+      for( ; *pFree != var_Undef ; pFree++) out << readableVar(*pFree) << " ";
+    }
+    out << "0 " << endl;
 
     globalStamp += idxOutputStruct;
   }// printNNF

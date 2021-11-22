@@ -89,7 +89,7 @@ public:
   }
 
 
-  inline void printNNF(std::ostream& out, bool certif)
+  inline void printNNF(std::ostream& out, bool certif, bool smooth)
   {
     if(stamp >= globalStamp) return;
     stamp = globalStamp + idxOutputStruct + 1;
@@ -101,7 +101,7 @@ public:
     DAG<T> **children = &allChildren[header.posInAllChildren];
     for(int i = 0 ; i<header.szChildren ; i++)
       {
-        children[i]->printNNF(out, certif);
+        children[i]->printNNF(out, certif, smooth);
         out << idxCurrent << " " << children[i]->getIdx() << " 0" << endl;
       }
   }// printNNF
